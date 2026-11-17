@@ -1,9 +1,13 @@
-// ---------------------------------------------------------------
-// Links and content. Edit these when something changes.
-// ---------------------------------------------------------------
-
 // TODO: replace with the public Nextcloud link for Session 1.
 const BOOKING_URL = 'https://nc.uni-bremen.de/'
+
+// Set to true once appointments are open. While false, the booking button
+// is disabled and the page shows a "coming soon" notice.
+const BOOKING_OPEN = false
+
+// TODO: add the links for the footer.
+const CSL_URL = 'https://www.uni-bremen.de/en/csl'
+const UNI_URL = 'https://www.uni-bremen.de/en/'
 
 // The PDF lives in the /public folder. BASE_URL makes the path work
 // both locally and on GitHub Pages.
@@ -39,9 +43,8 @@ const EXCLUSIONS = [
 
 const CONTACTS = ['meister@uni-bremen.de', 'mwhite@uni-bremen.de']
 
-// ---------------------------------------------------------------
-// Small reusable pieces
-// ---------------------------------------------------------------
+
+// Small reusable pieces ---------------------------------------------------------------
 
 function Section({ id, title, children }) {
   return (
@@ -52,12 +55,23 @@ function Section({ id, title, children }) {
   )
 }
 
-function LinkButton({ href, children, primary = false, ...rest }) {
+function LinkButton({ href, children, primary = false, disabled = false, ...rest }) {
   const base =
     'flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-center font-medium transition focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-100 sm:w-auto'
   const style = primary
     ? 'bg-brand-600 text-white shadow-sm hover:bg-brand-700'
     : 'border border-slate-300 bg-white text-brand-900 hover:border-brand-600 hover:bg-brand-50'
+  // A disabled link has no href, so it can't be clicked or opened.
+  if (disabled) {
+    return (
+      <span
+        aria-disabled="true"
+        className={`${base} cursor-not-allowed border border-slate-200 bg-slate-100 text-slate-400`}
+      >
+        {children}
+      </span>
+    )
+  }
   return (
     <a href={href} className={`${base} ${style}`} {...rest}>
       {children}
@@ -65,9 +79,8 @@ function LinkButton({ href, children, primary = false, ...rest }) {
   )
 }
 
-// ---------------------------------------------------------------
-// The page
-// ---------------------------------------------------------------
+
+// The page ---------------------------------------------------------------
 
 export default function App() {
   return (
@@ -75,6 +88,12 @@ export default function App() {
       <main className="mx-auto max-w-3xl px-5 sm:px-8">
         {/* Hero */}
         <header className="pt-12 pb-10 sm:pt-20 sm:pb-14">
+          {!BOOKING_OPEN && (
+            <span className="mb-5 inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-sm font-medium text-amber-800">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-amber-500" />
+              Coming soon
+            </span>
+          )}
           <p className="text-sm font-semibold tracking-widest text-brand-600 uppercase">
             MINDS Study · University of Bremen
           </p>
@@ -82,14 +101,20 @@ export default function App() {
             How does stress shape the way we make decisions?
           </h1>
           <p className="mt-5 text-lg text-slate-600">
-            We are looking for participants for a paid study at the Cognitive Systems Lab
-            (CSL). You will wear a sensor headband while making simple choices, before and
-            after a short stress task.
+            The MINDS study is starting soon at the Cognitive Systems Lab (CSL), and we will
+            be looking for participants. In this paid study, you will wear a sensor headband
+            while making simple choices, before and after a short stress task.
           </p>
 
           {/* All the important links in one place */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <LinkButton href={BOOKING_URL} primary target="_blank" rel="noopener noreferrer">
+            <LinkButton
+              href={BOOKING_URL}
+              primary
+              disabled={!BOOKING_OPEN}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Book your first session
             </LinkButton>
             <LinkButton href={PIS_URL} target="_blank" rel="noopener noreferrer">
@@ -100,7 +125,9 @@ export default function App() {
             </LinkButton>
           </div>
           <p className="mt-4 text-sm text-slate-500">
-            Please read the Participant Information Sheet before booking.
+            {BOOKING_OPEN
+              ? 'Please read the Participant Information Sheet before booking.'
+              : 'Appointments are not open yet. Booking will open soon, so please check back here frequently. In the meantime, you can already read the Participant Information Sheet.'}
           </p>
         </header>
 
@@ -206,7 +233,23 @@ export default function App() {
 
       <footer className="mt-6 border-t border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-3xl px-5 py-6 text-sm text-slate-500 sm:px-8">
-          Cognitive Systems Lab (CSL) · University of Bremen
+          <a
+            href={CSL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline-offset-4 hover:text-brand-700 hover:underline"
+          >
+            Cognitive Systems Lab (CSL)
+          </a>
+          <span aria-hidden="true"> · </span>
+          <a
+            href={UNI_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline-offset-4 hover:text-brand-700 hover:underline"
+          >
+            University of Bremen
+          </a>
         </div>
       </footer>
     </div>
