@@ -1,3 +1,5 @@
+import NeuralBackground from './NeuralBackground.jsx'
+
 const CSL_URL = 'https://www.uni-bremen.de/en/csl'
 const UNI_URL = 'https://www.uni-bremen.de/en/'
 
@@ -11,11 +13,11 @@ const FACTS = [
 ]
 
 const SESSION_STEPS = [
-  'You give informed consent and can ask us anything first.',
-  'You answer a few short questions about how stressed you feel.',
+  'Give informed consent and ask any questions you have.',
+  'Answer a questionnaire.',
   'We place a recording headband on your head. It measures brain activity and heart rate. Then you sit quietly for 2 minutes.',
   'You make a series of choices between two options with different amounts of money. There are no right or wrong answers.',
-  'You complete a 10-minute stress task: you put your hand in cold water for a short time and count backwards. You can stop at any time.',
+  'You complete a 10-minute stress task: you put your hand in cold water for a short time and count backwards. You can stop at any time if the water feels too cold or you are simply not comfortable.',
   'You repeat the choices, sit quietly for a few minutes, and get paid at the end.',
 ]
 
@@ -74,9 +76,10 @@ function LinkButton({ href, children, primary = false, disabled = false, ...rest
 export default function App() {
   return (
     <div className="min-h-screen bg-white text-slate-800 antialiased">
-      <main className="mx-auto max-w-3xl px-5 sm:px-8">
-        {/* Hero */}
-        <header className="pt-12 pb-10 sm:pt-20 sm:pb-14">
+      {/* Hero: full width, with the animated neural network behind the text */}
+      <div className="relative overflow-hidden bg-linear-to-b from-brand-50 to-white">
+        <NeuralBackground className="absolute inset-0" />
+        <header className="relative mx-auto max-w-3xl px-5 pt-12 pb-10 sm:px-8 sm:pt-20 sm:pb-14">
 
           <p className="text-sm font-semibold tracking-widest text-brand-600 uppercase">
             MINDS Study · University of Bremen
@@ -101,7 +104,9 @@ export default function App() {
             </LinkButton>
           </div>
         </header>
+      </div>
 
+      <main className="mx-auto max-w-3xl px-5 sm:px-8">
         <dl className="grid grid-cols-2 gap-3 pb-10 sm:grid-cols-4 sm:pb-14">
           {FACTS.map((fact) => (
             <div key={fact.label} className="rounded-xl bg-brand-50 p-4">
@@ -202,7 +207,7 @@ export default function App() {
             for research. 
           </p>
           <p className="text-sm text-slate-500">
-            For more information regarding data collection and processing please refer to the
+            For more information please refer to the
           <span aria-hidden="true"> </span>
           <a
             href={PIS_URL} target="_blank" rel="noopener noreferrer"
