@@ -1,16 +1,6 @@
-// TODO: replace with the public Nextcloud link for Session 1.
-const BOOKING_URL = 'https://nc.uni-bremen.de/'
-
-// Set to true once appointments are open. While false, the booking button
-// is disabled and the page shows a "coming soon" notice.
-const BOOKING_OPEN = false
-
-// TODO: add the links for the footer.
 const CSL_URL = 'https://www.uni-bremen.de/en/csl'
 const UNI_URL = 'https://www.uni-bremen.de/en/'
 
-// The PDF lives in the /public folder. BASE_URL makes the path work
-// both locally and on GitHub Pages.
 const PIS_URL = `${import.meta.env.BASE_URL}Participant_Info_Sheet.pdf`
 
 const FACTS = [
@@ -31,13 +21,13 @@ const SESSION_STEPS = [
 
 const EXCLUSIONS = [
   'You are under 18 years of age.',
-  'You have a heart or cardiovascular condition, including circulatory disorders.',
-  'You have high blood pressure (hypertension).',
+  'You have been diagnosed with a heart or cardiovascular condition, including circulatory disorders.',
+  'You have been diagnosed with high blood pressure (hypertension).',
   'You have a history of epilepsy or seizures.',
   'You experience panic attacks.',
   'You are pregnant.',
   'You regularly use illegal or recreational drugs.',
-  'You are a heavy smoker or regularly drink large amounts of alcohol.',
+  'You are a heavy smoker or regularly consume large amounts of alcohol.',
   'You are currently taking medication for ADHD or depression.',
 ]
 
@@ -61,7 +51,6 @@ function LinkButton({ href, children, primary = false, disabled = false, ...rest
   const style = primary
     ? 'bg-brand-600 text-white shadow-sm hover:bg-brand-700'
     : 'border border-slate-300 bg-white text-brand-900 hover:border-brand-600 hover:bg-brand-50'
-  // A disabled link has no href, so it can't be clicked or opened.
   if (disabled) {
     return (
       <span
@@ -88,12 +77,7 @@ export default function App() {
       <main className="mx-auto max-w-3xl px-5 sm:px-8">
         {/* Hero */}
         <header className="pt-12 pb-10 sm:pt-20 sm:pb-14">
-          {!BOOKING_OPEN && (
-            <span className="mb-5 inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-sm font-medium text-amber-800">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-amber-500" />
-              Coming soon
-            </span>
-          )}
+
           <p className="text-sm font-semibold tracking-widest text-brand-600 uppercase">
             MINDS Study · University of Bremen
           </p>
@@ -102,21 +86,13 @@ export default function App() {
           </h1>
           <p className="mt-5 text-lg text-slate-600">
             The MINDS study is starting soon at the Cognitive Systems Lab (CSL), and we will
-            be looking for participants. In this paid study, you will wear a sensor headband
-            while making simple choices, before and after a short stress task.
+            be looking for participants. Check this page frequently to not forget booking your spot in the experiment.
+            
+            In this paid study, you will wear a simple headband which measures your brain activity
+            while making choices.
           </p>
 
-          {/* All the important links in one place */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <LinkButton
-              href={BOOKING_URL}
-              primary
-              disabled={!BOOKING_OPEN}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Book your first session
-            </LinkButton>
             <LinkButton href={PIS_URL} target="_blank" rel="noopener noreferrer">
               Read the information sheet ↗
             </LinkButton>
@@ -124,14 +100,8 @@ export default function App() {
               Download PDF
             </LinkButton>
           </div>
-          <p className="mt-4 text-sm text-slate-500">
-            {BOOKING_OPEN
-              ? 'Please read the Participant Information Sheet before booking.'
-              : 'Appointments are not open yet. Booking will open soon, so please check back here frequently. In the meantime, you can already read the Participant Information Sheet.'}
-          </p>
         </header>
 
-        {/* Key facts: 2 columns on phones, 4 on larger screens */}
         <dl className="grid grid-cols-2 gap-3 pb-10 sm:grid-cols-4 sm:pb-14">
           {FACTS.map((fact) => (
             <div key={fact.label} className="rounded-xl bg-brand-50 p-4">
@@ -145,10 +115,21 @@ export default function App() {
         <Section id="about" title="What is the study about?">
           <p>
             MINDS stands for <em>Multimodal Investigation of Neurophysiology, Decision-Making,
-            and Sensitive Information under Stress</em>. We want to understand how short-term
-            stress affects decisions involving risk, and what wearable sensors (EEG and fNIRS)
-            can reveal about a person&apos;s stress level and individual characteristics.
+            and Sensitive Information under Stress</em>. 
+            We are interested in better understanding how stress influences people's decision-making and how this may be reflected in measurements from wearable sensors.
           </p>
+          <p>The main research questions consists of:</p> 
+          <ul className="list-disc space-y-1.5 pl-5">
+            <li>
+              How does acute stress affect an individual's preferences when making decisions involving risk?
+            </li>
+            <li>
+              To what extent can an individual's stress level be estimated from EEG and fNIRS data?
+            </li>
+            <li>
+              To what extent can individual characteristics or differences between people be identified from EEG and fNIRS data?
+            </li>
+          </ul>
         </Section>
 
         <Section id="session" title="What happens in a session?">
@@ -163,24 +144,36 @@ export default function App() {
             ))}
           </ol>
           <p className="text-sm text-slate-500">
-            The full step-by-step procedure is in the information sheet.
+            The full procedure is in the <span aria-hidden="true"> </span>
+          <a
+            href={PIS_URL} target="_blank" rel="noopener noreferrer"
+            className="underline hover:text-brand-700 hover:underline"
+          >
+            participant information sheet
+          </a>
+          .
           </p>
         </Section>
 
         <Section id="payment" title="Payment">
           <p>
-            You are paid at the end of every session: a base payment of €5 × the number of
-            sessions completed so far (€50 in total), plus €8–€20 per session based on your
-            choices in the decision tasks. Completing all four sessions earns{' '}
-            <strong>€82–€130</strong>.
+          For each completed session, you will receive €5 multiplied by the number of sessions
+          you have completed. This means you will receive €5 after the first session, €10 after the second
+          session, €15 after the third session, and €20 after the fourth session. If you complete all four sessions,
+          the total base payment will therefore be <b>€50</b>.
+          </p>
+          <p>
+            Plus there will be payments based on the choices you made during the experiment. In a session you can earn between <b>€8 to €20</b> based on your choices.
+          </p>
+          <p>
+            Thus in total you can gain between <b>€82 to €130</b>.
           </p>
         </Section>
 
         <Section id="eligibility" title="Can I take part?">
           <p>
             For your safety, please <strong>do not take part</strong> if any of the following
-            apply to you. You don&apos;t need to tell us which one. If you are unsure, ask us
-            before your first session.
+            apply to you. You don&apos;t need to tell us which one. If you are unsure, ask us via mail.
           </p>
           <ul className="list-disc space-y-1.5 pl-5">
             {EXCLUSIONS.map((item) => (
@@ -200,13 +193,24 @@ export default function App() {
           </ul>
         </Section>
 
-        <Section id="data" title="Your data and your rights">
+        <Section id="data" title="Data Collection and Processing">
           <p>
-            Participation is completely voluntary and you can withdraw at any time without
+            Participation is completely voluntary and you can withdraw at any time during the experiment without giving any reasons or without
             any consequences. Your data is linked across sessions with a pseudonymous code.
             After your final session, the link to your identity is destroyed, so the data
             can no longer be traced back to you. It is stored securely at CSL and used only
-            for research.
+            for research. 
+          </p>
+          <p className="text-sm text-slate-500">
+            For more information regarding data collection and processing please refer to the
+          <span aria-hidden="true"> </span>
+          <a
+            href={PIS_URL} target="_blank" rel="noopener noreferrer"
+            className="underline hover:text-brand-700 hover:underline"
+          >
+            participant information sheet
+          </a>
+          .
           </p>
         </Section>
 
