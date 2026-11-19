@@ -76,13 +76,12 @@ function LinkButton({ href, children, primary = false, disabled = false, ...rest
 export default function App() {
   return (
     <div className="min-h-screen bg-white text-slate-800 antialiased">
-      {/* Hero: full width, with the animated neural network behind the text */}
       <div className="relative overflow-hidden bg-linear-to-b from-brand-50 to-white">
         <NeuralBackground className="absolute inset-0" />
         <header className="relative mx-auto max-w-3xl px-5 pt-12 pb-10 sm:px-8 sm:pt-20 sm:pb-14">
 
           <p className="text-sm font-semibold tracking-widest text-brand-600 uppercase">
-            MINDS Study · University of Bremen
+            MINDS Study - University of Bremen
           </p>
           <h1 className="mt-3 text-3xl leading-tight font-bold text-brand-900 sm:text-5xl">
             How does stress shape the way we make decisions?
