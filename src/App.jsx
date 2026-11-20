@@ -90,8 +90,6 @@ export default function App() {
             The MINDS study is starting soon at the Cognitive Systems Lab (CSL), and we will
             be looking for participants. Check this page frequently to not forget booking your spot in the experiment.
             
-            In this paid study, you will wear a simple headband which measures your brain activity
-            while making choices.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
