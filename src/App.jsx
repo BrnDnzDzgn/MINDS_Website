@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import NeuralBackground from './NeuralBackground.jsx'
+import PreRegister from './PreRegister.jsx'
 
 const CSL_URL = 'https://www.uni-bremen.de/en/csl'
 const UNI_URL = 'https://www.uni-bremen.de/en/'
@@ -74,6 +76,19 @@ function LinkButton({ href, children, primary = false, disabled = false, ...rest
 // The page ---------------------------------------------------------------
 
 export default function App() {
+  const [hash, setHash] = useState(window.location.hash)
+
+  useEffect(() => {
+    function onHashChange() {
+      setHash(window.location.hash)
+      window.scrollTo(0, 0) // start each page at the top
+    }
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
+
+  if (hash === '#pre-register') return <PreRegister />
+
   return (
     <div className="min-h-screen bg-white text-slate-800 antialiased">
       <div className="relative overflow-hidden bg-linear-to-b from-brand-50 to-white">
@@ -93,6 +108,9 @@ export default function App() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <LinkButton href="#pre-register" primary>
+              Pre-register
+            </LinkButton>
             <LinkButton href={PIS_URL} target="_blank" rel="noopener noreferrer">
               Read the information sheet ↗
             </LinkButton>
