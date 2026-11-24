@@ -22,9 +22,9 @@ const FACTS = [
 const SESSION_STEPS = [
   'Give informed consent and ask any questions you have.',
   'Answer a questionnaire.',
-  'We place a recording headband on your head. It measures brain activity and heart rate. Then you sit quietly for 2 minutes.',
-  'You make a series of choices between two options with different amounts of money. There are no right or wrong answers.',
-  'You complete a 10-minute stress task: you put your hand in cold water for a short time and count backwards. ',
+  'We place a headband on your head. It measures brain activity and heart rate.',
+  'You make a series of choices between two options with different amounts of money.',
+  'You complete a 10 minute stress task: you put your hand in cold water for a short time and count backwards. ',
   'You repeat the choices, sit quietly for a few minutes, and get paid at the end.',
 ]
 
