@@ -289,8 +289,8 @@ export default function App() {
               ))}
             </ul>
             <p className="text-sm text-slate-500">
-              Researchers: Lily Meister &amp; Matthew White · Supervisors: Dr. Felix Putze &amp;
-              Prof. Tanja Schultz
+              Researchers: Lily Meister &amp; Matthew White · Supervisor:
+              Prof. Dr. Tanja Schultz
             </p>
           </Card>
         </div>
