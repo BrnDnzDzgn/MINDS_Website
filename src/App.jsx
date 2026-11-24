@@ -5,6 +5,9 @@ import PreRegister from './PreRegister.jsx'
 const CSL_URL = 'https://www.uni-bremen.de/en/csl'
 const UNI_URL = 'https://www.uni-bremen.de/en/'
 
+const UNI_LOGO = `${import.meta.env.BASE_URL}Uni_Bremen_Logo.png`
+const CSL_LOGO = `${import.meta.env.BASE_URL}CSL_Logo.png`
+
 const PIS_URL = `${import.meta.env.BASE_URL}Participant_Info_Sheet.pdf`
 
 const FACTS = [
@@ -91,14 +94,26 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white text-slate-800 antialiased">
+      <div className="sticky top-0 z-20 grid grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-brand-100/70 bg-brand-50/85 px-5 py-3 backdrop-blur-md sm:px-8">
+        <a href={UNI_URL} target="_blank" rel="noopener noreferrer" className="justify-self-start">
+          <img src={UNI_LOGO} alt="University of Bremen" className="h-8 w-auto sm:h-10" />
+        </a>
+        <p className="hidden text-sm font-semibold tracking-widest text-brand-600 uppercase md:block">
+          MINDS Study - University of Bremen
+        </p>
+        <a href={CSL_URL} target="_blank" rel="noopener noreferrer" className="col-start-3 justify-self-end">
+          <img src={CSL_LOGO} alt="Cognitive Systems Lab (CSL)" className="h-8 w-auto sm:h-10" />
+        </a>
+      </div>
+
       <div className="relative overflow-hidden bg-linear-to-b from-brand-50 to-white">
         <NeuralBackground className="absolute inset-0" />
-        <header className="relative mx-auto max-w-3xl px-5 pt-12 pb-10 sm:px-8 sm:pt-20 sm:pb-14">
 
-          <p className="text-sm font-semibold tracking-widest text-brand-600 uppercase">
+        <header className="relative mx-auto max-w-3xl px-5 pt-10 pb-10 sm:px-8 sm:pt-16 sm:pb-14">
+          <p className="text-sm font-semibold tracking-widest text-brand-600 uppercase md:hidden">
             MINDS Study - University of Bremen
           </p>
-          <h1 className="mt-3 text-3xl leading-tight font-bold text-brand-900 sm:text-5xl">
+          <h1 className="mt-3 md:mt-0 text-3xl leading-tight font-bold text-brand-900 sm:text-5xl">
             How does stress shape the way we make decisions?
           </h1>
           <p className="mt-5 text-lg text-slate-600">

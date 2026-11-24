@@ -24,8 +24,8 @@ export default function PreRegister() {
   }
 
   function handleSubmit(event) {
-    event.preventDefault() // stop the browser from reloading the page
-    if (allChecked) window.location.href = FORM_URL
+    event.preventDefault()
+    if (allChecked) window.open(FORM_URL, '_blank', 'noopener,noreferrer')
   }
 
   return (
